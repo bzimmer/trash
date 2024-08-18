@@ -1,0 +1,16 @@
+version: '3'
+
+tasks:
+  default:
+    cmds:
+      - task -l
+
+  build:
+    desc: Build binary
+    cmds:
+      - swift build -c release --product trash
+
+  clean:
+    desc: Clean build directory
+    cmds:
+      - rm -rf ./build
