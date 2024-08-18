@@ -8,6 +8,8 @@ on:
 jobs:
   release:
     runs-on: macos-latest
+    env:
+      archive: trash_${{ github.ref_name }}_arm64-apple-macosx.tar.gz
 
     steps:
       - name: Checkout
@@ -15,9 +17,9 @@ jobs:
       - name: Build executable for release
         run: swift build -c release --product trash
       - name: Compress archive
-        run: tar -czf ${{ github.ref_name }}.tar.gz -C .build/arm64-apple-macosx/release trash
+        run: tar -czf $archive -C .build/arm64-apple-macosx/release trash
       - name: Release
         uses: softprops/action-gh-release@v2
         with:
-          files: ${{ github.ref_name }}.tar.gz
+          files: $archive
           token: ${{ secrets.GITHUB_TOKEN }}
